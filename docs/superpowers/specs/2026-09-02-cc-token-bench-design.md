@@ -67,7 +67,7 @@ cc-token-bench/
     notes-feature/          task B (feature)
       (same layout)
   studies/
-    smoke-haiku.toml        1 run per task on Haiku, validates the pipeline
+    smoke-opus5.toml        1 run per task on Opus 5, validates the pipeline
     2026-09-fable5-vs-fable51.toml
   results/
     <study-id>/
@@ -301,7 +301,7 @@ broken fix), `edits_tests` (modifies a visible test), `rate_limited`,
 - preflight: version mismatch refuses, dirty config folder refuses
 
 No test calls the real Claude Code. The real pipeline is validated once by the
-Haiku smoke study before the Fable study.
+Opus 5 smoke study before the Fable study.
 
 ## 9. Per-run record (`meta.json`)
 
@@ -320,7 +320,7 @@ diff_files_changed, diff_lines
 ## 10. Study protocol (the runbook that ships in README)
 
 1. One time: `bench login` and follow the two printed commands.
-2. `bench preflight studies/smoke-haiku.toml` then `bench all studies/smoke-haiku.toml`. Read `summary.md`. Both tasks should pass on at least one run; if Haiku cannot pass a task at all, the task is too hard and gets revised before the Fable study.
+2. `bench preflight studies/smoke-opus5.toml` then `bench all studies/smoke-opus5.toml`. Read `summary.md`. Both tasks must pass; if Opus 5 at default effort cannot pass a task, the task is broken or too hard and gets revised before the Fable study.
 3. `bench all studies/2026-09-fable5-vs-fable51.toml --parallel 2`. Expect 4 to 8 hours. If it stops on a rate limit, rerun the same command after the printed reset time; finished runs are skipped.
 4. Commit `results/<study-id>/` in full. Write the post from `summary.md`.
 5. For a new model later: copy the matrix file, change `study_id` and `models`, keep `claude_code_version` current, rerun steps 2 and 3, then `bench report --studies old new`.
